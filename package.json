@@ -1,0 +1,94 @@
+{
+  "name": "dbg-tools",
+  "displayName": "DBG Tools",
+  "description": "",
+  "publisher": "yingquelou",
+  "version": "0.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yingquelou/dbg-tools.git"
+  },
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:dbg.runModules",
+    "onCommand:dbg.get"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "dbg.runModules",
+        "title": "Run user modules (dbg)"
+      },
+      {
+        "command": "dbg.get",
+        "title": "Get cached value (dbg)"
+      }
+    ],
+    "configuration": {
+      "title": "Command For Debugger",
+      "properties": {
+        "dbg.modulesPath": {
+          "type": "string",
+          "default": "",
+          "description": "默认的用户模块目录（相对于工作区根或绝对路径）。可在运行命令时覆盖。"
+        },
+        "dbg.cachePath": {
+          "type": "string",
+          "default": "",
+          "description": "缓存文件路径（默认写入 <workspace>/.vscode/dbg/modulesCache.json）。可配置为文件或目录，支持相对工作区根。"
+        },
+        "dbg.autoRefreshOnActivate": {
+          "type": "boolean",
+          "default": true,
+          "description": "扩展激活时自动刷新（运行用户模块）"
+        },
+        "dbg.autoRefreshFileWatcher": {
+          "type": "boolean",
+          "default": true,
+          "description": "当模块目录下文件变更时自动刷新"
+        },
+        "dbg.refreshDebounceMs": {
+          "type": "number",
+          "default": 800,
+          "description": "文件变更触发自动刷新的防抖时间（毫秒）"
+        },
+        "dbg.refreshIntervalSeconds": {
+          "type": "number",
+          "default": 0,
+          "description": "周期性刷新间隔（秒），0 表示禁用"
+        },
+        "dbg.showOutputOnRefresh": {
+          "type": "boolean",
+          "default": false,
+          "description": "在自动刷新时是否自动打开输出面板"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.70.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@typescript-eslint/eslint-plugin": "^8.45.0",
+    "@typescript-eslint/parser": "^8.45.0",
+    "eslint": "^9.36.0",
+    "typescript": "^5.9.3",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
